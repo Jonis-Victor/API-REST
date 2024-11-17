@@ -8,7 +8,7 @@ const username = process.env.MONGO_DB_USERNAME;
 const password = process.env.MONGO_DB_PASSWORD;
 const databaseName = process.env.MONGO_DB_DATABASE_NAME;
 
-const connectionString = `mongodb+srv://${username}:${password}@ecommerce-express.zhfyc6b.mongodb.net/${databaseName}`;
+const connectionString = `mongodb+srv://${username}:${password}@${databaseName}.zhfyc6b.mongodb.net/`;
 
 const options: IMongoDBConnectOptions = {
   autoIndex: true,
@@ -21,4 +21,5 @@ const options: IMongoDBConnectOptions = {
 export const db = mongoose.connect(connectionString, options)
   .then(result => {
     if (result) console.log(`Database connection succesfully to ${databaseName}`);
+    mongoose.connection.useDb(`${databaseName}`); 
   }).catch(error => console.error(error));
